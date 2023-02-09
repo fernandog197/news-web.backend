@@ -22,9 +22,12 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/', allRouters)
+app.use('/', (req, res) => {
+    res.send('Conectado exitosamente! :D')
+})
+app.use('/api/v1/', allRouters)
 
-const CONNECTIOM_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.5t8gdfu.mongodb.net/?retryWrites=true&w=majority`
+const CONNECTIOM_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.5t8gdfu.mongodb.net/news-app?retryWrites=true&w=majority`
 const PORT = process.env.PORT || 5000
 
 mongoose.set('strictQuery', true)
