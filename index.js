@@ -22,15 +22,11 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/', (req, res) => {
-    res.send('Conectado exitosamente! :D')
-})
-app.use('/api/v1/', allRouters)
+app.use('/', allRouters)
 
-const CONNECTIOM_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ylvlvuf.mongodb.net/news-app?retryWrites=true&w=majority`
 const PORT = process.env.PORT || 5000
 
 mongoose.set('strictQuery', true)
-mongoose.connect(CONNECTIOM_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`)))
     .catch((err) => console.log(err))
